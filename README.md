@@ -1,2 +1,2 @@
- # nextJS dashboard
+
 lux-paradise
