@@ -4,7 +4,6 @@
 }
 
 body {
-  font-family: var(--font);
   scroll-behavior: smooth;
   margin: 0;
 }
