@@ -1,4 +1,10 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font: Arial, Helvetica, sans-serif;
+  --primary: #003da5;
+}
+
+body {
+  font-family: var(--font);
+  scroll-behavior: smooth;
+  margin: 0;
 }
