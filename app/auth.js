@@ -1,8 +1,10 @@
 import { authConfig } from "./auth.config";
 import NextAuth from "next-auth";
 import Credentials from 'next-auth/providers/credentials';
-import bcrypt from 'bcrypt';
-import db from "@/app/lib/db.js";
+import bcrypt from 'bcryptjs';
+import {db} from "@/lib/db.js";
+
+
 
 async function getPassword() {
   try {
@@ -21,11 +23,11 @@ export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
-      credentials: {
-        password: { label: "Mot de passe", type: "password" },
-      },
+      
       async authorize(credentials) {
+        // Récupère le mot de passe
         const password = credentials?.password;
+        
 
         // Vérifie si le mot de passe est fourni
         if (!password) {
@@ -41,6 +43,7 @@ export const { auth, signIn, signOut } = NextAuth({
         // Vérifie la correspondance
         const passwordMatch = await bcrypt.compare(password, storedPassword);
         if (!passwordMatch) {
+          console.log('Mot de passe incorrect');
           return null;
         }
 

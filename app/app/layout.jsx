@@ -1,5 +1,10 @@
-import "./globals.css";
-import Header from "./components/Header";
+import { Inter } from 'next/font/google';
+import './globals.css'
+// Configurez votre police
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -8,9 +13,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body style={{ fontFamily: "var(--font)" }}>
-        <Header/>
+    <html lang="en" >
+      <body className={inter.className} >
         {children}
       </body>
     </html>
