@@ -1,0 +1,155 @@
+.dashboardWrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  background-color: #f5f7fa;
+}
+
+.dashboardWrapper .sidebar {
+  flex: 1;
+  background-color: white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+  margin: 0 auto 2rem;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.links {
+  margin-top: 2rem;
+  flex-grow: 1;
+}
+
+.links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.links li {
+  margin-bottom: 1rem;
+}
+
+.links a {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: #4a5568;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  margin-left: 0;
+  transition: all 0.3s ease;
+}
+
+.links a:hover {
+  background-color: rgba(0, 61, 165, 0.05);
+  color: var(--primary);
+  margin-left: 10px;
+  opacity: 0.9;
+}
+
+.links a.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.links svg {
+  margin-right: 0.5rem;
+}
+
+.sidebar button {
+  background-color: white;
+  color: #e53e3e;
+  border: 1px solid #e53e3e;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 2rem;
+  transition: all 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.dashboardWrapper .main {
+  flex: 4;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Responsiveness for mobile devices */
+@media (max-width: 768px) {
+  .dashboardWrapper {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    display: block;
+  }
+
+  .dashboardWrapper .sidebar {
+    width: 100%;
+    padding: 1rem;
+    height: fit-content;
+  }
+
+  .logo {
+    width: 80px;
+    margin: 0 auto 1rem;
+  }
+
+  .links {
+    margin-top: 0.4rem;
+  }
+
+  .links ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .links li {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .links a {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .links a:hover {
+    margin-left: 0;
+    transform: scale(1.05);
+  }
+
+  .sidebar button {
+    width: 90%;
+    margin: 0.5rem auto;
+  }
+
+  .dashboardWrapper .main {
+    padding: 1rem;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .links ul {
+    flex-direction: column;
+  }
+}
