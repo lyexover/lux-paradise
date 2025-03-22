@@ -2,24 +2,10 @@
 import { useEffect, useState } from "react";
 import styles from "@/app/modules/dashboard.module.css";
 
-export default function ProductForm() {
-  const [categories, setCategories] = useState([]);
+export default function ProductForm({categories}) {
+
   const [status, setStatus] = useState({ success: null, error: null, pending: false });
 
-  // Fetch des catégories
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch("/api/categories");
-        if (!response.ok) throw new Error("Erreur lors du fetch");
-        const data = await response.json();
-        setCategories(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchCategories();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +32,7 @@ export default function ProductForm() {
   };
 
   return (
-    <div className={styles.formContainer}>
+    <div className={styles.productForm} >
       {status.error && <p className={styles.error}>{status.error}</p>}
       {status.success && <p className={styles.success}>Produit ajouté !</p>}
 

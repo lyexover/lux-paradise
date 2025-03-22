@@ -54,3 +54,14 @@ export async function POST(req) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+
+
+export async function GET() {
+  try {
+    const [rows] = await db.query('SELECT * FROM produits');
+    return NextResponse.json(rows);
+  } catch (error) {
+    return NextResponse.error(error);
+  }
+
+}
