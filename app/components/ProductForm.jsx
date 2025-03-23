@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "@/app/modules/dashboard.module.css";
+import { useRouter } from "next/navigation";
 
-export default function ProductForm({categories}) {
-
+export default function ProductForm({ categories, produit, onSuccess }) {
   const [status, setStatus] = useState({ success: null, error: null, pending: false });
-
+  const isEditing = !!produit; // Vérifie si on est en mode édition
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,8 +14,13 @@ export default function ProductForm({categories}) {
 
     try {
       const formData = new FormData(e.target);
-      const response = await fetch("/api/produits", {
-        method: "POST",
+      
+      // Différentes routes et méthodes selon le mode
+      const url = isEditing ? `/api/produits/${produit.id}/edit` : "/api/produits";
+      const method = isEditing ? "PATCH" : "POST";
+
+      const response = await fetch(url, {
+        method: method,
         body: formData,
       });
 
@@ -22,9 +28,12 @@ export default function ProductForm({categories}) {
 
       if (response.ok && result.success) {
         setStatus({ success: true, error: null, pending: false });
-        e.target.reset(); // Réinitialiser le formulaire
+        if (onSuccess) onSuccess(result); // Callback pour notifier le parent
+        if (!isEditing) e.target.reset(); // Réinitialiser le formulaire uniquement en mode ajout
+
+        router.push("/dashboard/produits") // Rafraîchir la page pour afficher les changements
       } else {
-        setStatus({ success: null, error: result.error || "Erreur lors de l’ajout", pending: false });
+        setStatus({ success: null, error: result.error || "Erreur lors de l'opération", pending: false });
       }
     } catch (error) {
       setStatus({ success: null, error: error.message, pending: false });
@@ -32,15 +41,39 @@ export default function ProductForm({categories}) {
   };
 
   return (
-    <div className={styles.productForm} >
+    <div className={styles.productForm}>
       {status.error && <p className={styles.error}>{status.error}</p>}
-      {status.success && <p className={styles.success}>Produit ajouté !</p>}
+      {status.success && <p className={styles.success}>
+        {isEditing ? "Produit modifié !" : "Produit ajouté !"}
+      </p>}
 
       <form onSubmit={handleSubmit}>
-        <input type="text" name="nom" placeholder="Nom du produit" required />
-        <input type="text" name="description" placeholder="Description" required />
-        <input type="number" name="prix" placeholder="Prix du produit (DA)" required />
-        <select name="category" required>
+        <input 
+          type="text" 
+          name="nom" 
+          placeholder="Nom du produit" 
+          defaultValue={produit?.nom || ""}
+          required 
+        />
+        <input 
+          type="text" 
+          name="description" 
+          placeholder="Description" 
+          defaultValue={produit?.description || ""}
+          required 
+        />
+        <input 
+          type="number" 
+          name="prix" 
+          placeholder="Prix du produit (DA)" 
+          defaultValue={produit?.prix || ""}
+          required 
+        />
+        <select 
+          name="category" 
+          defaultValue={produit?.categorie_id || ""}
+          required
+        >
           <option value="">Choisir une catégorie</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
@@ -48,9 +81,23 @@ export default function ProductForm({categories}) {
             </option>
           ))}
         </select>
-        <input type="file" name="image" required />
+        
+      
+      {
+         !isEditing &&   // Afficher le champ de fichier uniquement pour un nouvel ajout
+         <input 
+          type="file" 
+          name="image" 
+          required={!isEditing} // Obligatoire seulement pour un nouvel ajout
+        />
+
+      }  
+        
         <button type="submit" disabled={status.pending}>
-          {status.pending ? "Ajout en cours..." : "Ajouter le produit"}
+          {status.pending 
+            ? (isEditing ? "Modification en cours..." : "Ajout en cours...") 
+            : (isEditing ? "Modifier le produit" : "Ajouter le produit")
+          }
         </button>
       </form>
     </div>

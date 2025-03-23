@@ -4,6 +4,8 @@ import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import ProductForm from "@/components/ProductForm";
 import styles from "@/app/modules/dashboard.module.css";
+import { Pencil } from "lucide-react";
+
 
 export default function Page() {
     const [showForm, setShowForm] = useState(false);
@@ -11,6 +13,16 @@ export default function Page() {
     const [produits, setProduits] = useState([]);
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("");
+    const [amodifier, setAmodifier] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+
+    //fonction pour vider le formulaire si on a cliqué sur le bouton modifier un produit avant ajouter 
+    function handleAddButton(){
+        setAmodifier(null);
+        setShowForm(true);
+    }
+
 
     // Récupérer les catégories et produits
     useEffect(() => {
@@ -28,15 +40,18 @@ export default function Page() {
                     categoriesResponse.json(), 
                     produitsResponse.json()
                 ]);
+               
 
                 setCategories(categories);
                 setProduits(produits);
+                setLoading(false);
             } catch (err) {
                 console.log(err);
             }
         };
 
         fetchData();
+        
     }, []);
 
     // Filtrage des produits
@@ -48,6 +63,47 @@ export default function Page() {
             return product.nom.toLowerCase().includes(search.toLowerCase()) && product.categorie_id === parseInt(category);
         });
     }, [produits, search, category]);
+
+   
+    // Fonction pour supprimer un produit
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`/api/produits/${id}`, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) throw new Error("Erreur lors de la suppression");
+            setProduits((prev) => prev.filter((p) => p.id !== id));
+
+        } catch (err) {
+            console.error("Erreur lors de la suppression du produit:", err);
+        }
+    }
+
+    // Fonction pour mettre à jour la disponibilité d'un produit
+    const handleDisponibilite = async (id, etat) => {
+        try {
+            const response = await fetch(`/api/produits/${id}`, {
+                method: "PUT",
+                body: JSON.stringify({disponibilite: etat}),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) throw new Error("Erreur lors de la mise à jour de la disponibilité");
+            setProduits((prev) => prev.map((p) => p.id === id ? {...p, disponibilite: etat} : p));
+        }
+        catch(err){
+            console.error("Erreur lors de la mise à jour de la disponibilité:", err);
+        }
+    }
+
+
+
+
+
+    
 
     return (
         <div className={styles.gestionProduits}>
@@ -62,7 +118,8 @@ export default function Page() {
                             ×
                         </button>
                         <ProductForm 
-                            categories={categories}                           
+                            categories={categories}  
+                            produit={amodifier}                      
                         />
                     </div>
                 </div>
@@ -72,7 +129,7 @@ export default function Page() {
                 <h1>Gestion des produits</h1>
                 <button 
                     className={styles.addButton}
-                    onClick={() => setShowForm(true)}
+                    onClick={handleAddButton}
                 >
                     Ajouter un Produit
                 </button>
@@ -101,13 +158,19 @@ export default function Page() {
 
             {/* Affichage des produits */}
             <div className={styles.productsContainer}>
-                {filteredProducts.length === 0 ? (
+                {
+                loading ? <div>Chargement...</div> :   // si loading est true on affiche "Chargement..."
+                
+                filteredProducts.length === 0 ? (
                     <div className={styles.noProducts}>
                         Aucun produit ne correspond à votre recherche.
                     </div>
-                ) : (
+                ) :
+                 
+                  (
                     filteredProducts.map((produit) => (
-                        <div key={produit.id} className={styles.productCard}>
+                        <div key={produit.id} className={styles.productCard + (produit.disponibilite === 0 ? ` ${styles.indisponible}` : "")}>
+                            <button className={styles.editbtn} onClick={()=> {setShowForm(true); setAmodifier(produit)}} ><Pencil /></button>
                             <div className={styles.productImage}>
                                 {produit.photo ? (
                                     <Image 
@@ -116,7 +179,7 @@ export default function Page() {
                                         width={300}
                                         height={300}
                                         className={styles.productImg}
-                                        priority={false}
+                                        
                                     />
                                 ) : (
                                     <div className={styles.noImage}>Image non disponible</div>
@@ -131,8 +194,14 @@ export default function Page() {
                         
                             </div>
                             <div className={styles.productActions}>
-                                <button className={styles.editBtn}>Modifier</button>
-                                <button className={styles.deleteBtn}>Supprimer</button>
+
+                                <button className={styles.dispoBtn}
+                                   onClick={() => handleDisponibilite(produit.id ,produit.disponibilite === 1 ? 0 : 1)}
+                                >
+                                    {produit.disponibilite == 1 ? 'Marquer Indisponible' : 'Marquer Disponible'}
+                                </button>
+
+                                <button className={styles.deleteBtn} onClick={()=> handleDelete(produit.id)} >Supprimer</button>
                             </div>
                         </div>
                     ))

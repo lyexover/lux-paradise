@@ -102,7 +102,7 @@
 
   .dashboardWrapper .sidebar {
     width: 100%;
-    padding: 1rem;
+    padding: 0.1rem;
     height: fit-content;
   }
 
@@ -112,14 +112,20 @@
   }
 
   .links {
-    margin-top: 0.4rem;
+    margin: 0.4rem auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .links ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 0.5rem;
+    width: 80%;
   }
 
   .links li {
@@ -205,7 +211,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1001;
 }
 
 .formContainer {
@@ -283,11 +289,20 @@
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .productCard:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.indisponible {
+  box-shadow: 0 0 15px rgba(171, 5, 5, 0.312);
+}
+
+.indisponible .dispoBtn {
+  color: var(--primary);
 }
 
 .productImage {
@@ -386,13 +401,13 @@
   transition: all 0.3s ease;
 }
 
-.editBtn {
+.dispoBtn {
   background-color: #ebf4ff;
-  color: var(--primary);
+  color: rgb(191, 14, 14);
   border: 1px solid #d6e4ff;
 }
 
-.editBtn:hover {
+.dispoBtn:hover {
   background-color: #dbeafe;
 }
 
@@ -404,6 +419,23 @@
 
 .deleteBtn:hover {
   background-color: #fed7d7;
+}
+
+.editbtn {
+  background-color: #007bff2e;
+  width: fit-content;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+.editbtn:hover {
+  opacity: 0.8;
 }
 
 .noProducts {
