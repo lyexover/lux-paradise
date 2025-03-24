@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, use } from "react";
 import Image from "next/image";
 import ProductForm from "@/components/ProductForm";
 import styles from "@/app/modules/dashboard.module.css";
@@ -63,6 +63,13 @@ export default function Page() {
             return product.nom.toLowerCase().includes(search.toLowerCase()) && product.categorie_id === parseInt(category);
         });
     }, [produits, search, category]);
+
+    //data pour la pagination 
+    const [currentPage, setCurrentPage] = useState(1);
+    const nb_pages = Math.ceil(filteredProducts.length / 2); // 2 produits par page
+    const indiceFin = currentPage * 2;
+    const indiceDebut = indiceFin - 2;
+
 
    
     // Fonction pour supprimer un produit
@@ -168,7 +175,7 @@ export default function Page() {
                 ) :
                  
                   (
-                    filteredProducts.map((produit) => (
+                    filteredProducts.slice(indiceDebut, indiceFin).map((produit) => (
                         <div key={produit.id} className={styles.productCard + (produit.disponibilite === 0 ? ` ${styles.indisponible}` : "")}>
                             <button className={styles.editbtn} onClick={()=> {setShowForm(true); setAmodifier(produit)}} ><Pencil /></button>
                             <div className={styles.productImage}>
@@ -206,6 +213,22 @@ export default function Page() {
                         </div>
                     ))
                 )}
+            </div>
+
+
+            <div className={styles.paginationContainer}>
+               {
+                Array.from({length: nb_pages}, (_, i)=> {
+                    return (
+                        <button 
+                            key={i}
+                            className={currentPage === i + 1 ? styles.active : ""}
+                            onClick={() => setCurrentPage(i + 1)}
+                        >
+                            {i + 1}
+                        </button>
+                     )}) 
+               }
             </div>
         </div>
     );

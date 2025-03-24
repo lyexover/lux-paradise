@@ -448,6 +448,31 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  padding-bottom: 1.5rem;
+}
+
+.paginationContainer button {
+  background-color: white;
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0.6rem 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 0.3rem;
+}
+.paginationContainer .active {
+  background-color: var(--primary);
+  color: white;
+}
+
 /* Styles pour le formulaire de produit */
 .productForm form {
   display: flex;
