@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 export default function Banniere(){
 
-    const Images = ['/pub1.jpg', '/pub2.jpg']
+    const Images = ['/pub3.jpg', '/pub1.jpg', '/pub2.jpg' ]
     const [chosenImage, setChosenImage] = useState(0)
 
      function handleRight(){

@@ -1,0 +1,139 @@
+/* app/modules/footer.module.css */
+.footer {
+  background-color: #0046ad;
+  color: white;
+  padding: 3rem 0 1rem;
+  width: 100%;
+}
+
+.footerContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.logoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logoImage {
+  margin-bottom: 1rem;
+  height: auto;
+  background-color: white;
+  border-radius: 0.3rem;
+}
+
+.tagline {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0;
+  color: #f2f7ff;
+}
+
+.sectionTitle {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.linksSection,
+.contactSection,
+.socialSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.linksList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLink {
+  color: #f2f7ff;
+  text-decoration: none;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.footerLink:hover {
+  color: #ffffff;
+}
+
+.cartIcon {
+  vertical-align: middle;
+}
+
+.contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.contactIcon {
+  color: #f2f7ff;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 1rem;
+}
+
+.socialLink {
+  color: #f2f7ff;
+  transition: color 0.3s ease;
+}
+
+.socialLink:hover {
+  color: #ffffff;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.9rem;
+  color: #f2f7ff;
+}
+
+@media (max-width: 1024px) {
+  .footerContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .footerContainer {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .logoSection {
+    align-items: center;
+  }
+
+  .socialIcons {
+    justify-content: center;
+  }
+}

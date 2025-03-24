@@ -1,0 +1,87 @@
+/* app/modules/aboutus.module.css */
+.aboutSection {
+  padding: 4rem 0;
+  background-color: #f2f7ff;
+  width: 100%;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  color: #0046ad;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.aboutContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  align-items: center;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.aboutImage {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.imageContainer:hover .aboutImage {
+  transform: scale(1.05);
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.aboutText {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.aboutText:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .aboutContainer {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .imageContainer {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .aboutText {
+    font-size: 1rem;
+  }
+
+  .imageContainer {
+    height: 250px;
+  }
+}
