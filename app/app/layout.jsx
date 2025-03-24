@@ -1,7 +1,9 @@
-import { Inter } from 'next/font/google';
+import { Inter, Montserrat  } from 'next/font/google';
 import './globals.css'
 // Configurez votre police
-const inter = Inter({
+
+
+const montserrat = Montserrat({
   subsets: ['latin'],
   display: 'swap',
 });
@@ -14,7 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" >
-      <body className={inter.className} >
+      <body className={montserrat.className} >
         {children}
       </body>
     </html>

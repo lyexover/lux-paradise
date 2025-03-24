@@ -1,0 +1,69 @@
+.banniereSection {
+  background-color: #f2f7ff;
+}
+
+.banniereContainer {
+  width: 100%;
+  position: relative;
+}
+
+.banniereContainer .image {
+  width: 100%;
+  height: auto;
+}
+
+.banniereContainer button {
+  position: absolute;
+  padding: 1rem;
+  border: none;
+  color: var(--primary);
+  display: none;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  transition: 0.2s ease;
+}
+
+.banniereContainer:hover button {
+  display: block;
+  opacity: 0.7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.banniereContainer button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.leftBtn {
+  left: 2rem;
+  top: 50%;
+}
+
+.rightBtn {
+  right: 2rem;
+  top: 50%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 7px;
+}
+
+.pagination button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background-color: rgb(184, 184, 184);
+}
+.pagination .active {
+  background-color: var(--primary);
+}

@@ -66,9 +66,9 @@ export default function Page() {
 
     //data pour la pagination 
     const [currentPage, setCurrentPage] = useState(1);
-    const nb_pages = Math.ceil(filteredProducts.length / 2); // 2 produits par page
-    const indiceFin = currentPage * 2;
-    const indiceDebut = indiceFin - 2;
+    const nb_pages = Math.ceil(filteredProducts.length / 4); // 2 produits par page
+    const indiceFin = currentPage * 4;
+    const indiceDebut = indiceFin - 4;
 
 
    
