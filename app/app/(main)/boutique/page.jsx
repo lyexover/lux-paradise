@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { fetchProduits } from "@/lib/products";
 import styles from '@/app/modules/boutique.module.css';
 import Image from 'next/image';
+import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
 
 async function fetchCategories(){
     try {
@@ -30,18 +32,21 @@ export default async function BoutiquePage(props) {
         <div className={styles.pageContainer}>
 
             <div className={styles.banniereContainer} >
-              <Image className={styles.banniere} alt="boutique banniere" width={1480} height={500}  src={'/banniere-boutique.jpg'}/>
+              <Image className={styles.banniere} alt="boutique banniere" width={1480} height={600}  src={'/banniere-boutique.jpg'}/>
             </div>
 
-            <h1 className={styles.pageTitle}>DECOUVREZ NOS PRODUITS !</h1>
-            <FiltresBoutique categories={categories} />
+           
+            <div className={styles.filterSection}>
+                <h1 className={styles.filterTitle}>Trouvez votre produit idéal</h1>
+                <FiltresBoutique categories={categories} />
+              </div>
 
             <div className={styles.productGrid}>
                 {produits.map(produit => {
                     const isNew = new Date(produit.timestamp) > oneMonthAgo
 
                     return (
-                        <div key={produit.id} className={styles.productCard}>
+                        <Link href={''} key={produit.id} className={styles.productCard}>
                             {isNew && <div className={styles.newLabel}>Nouveau</div>}
                             <div className={styles.productImageContainer}>
                                 <Image 
@@ -59,10 +64,10 @@ export default async function BoutiquePage(props) {
                                 <p className={styles.productName}>{produit.nom}</p>
                                 <div className={styles.productPriceContainer}>
                                     <span className={styles.productPrice}>{produit.prix} DA</span>
-                                    <button className={styles.buyButton}>🛒</button>
+                                    <button className={styles.buyButton}> <ShoppingCart size={20} color="white" /></button>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     )
                 })}
             </div>
