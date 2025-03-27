@@ -6,3 +6,8 @@ body {
   scroll-behavior: smooth;
   margin: 0;
 }
+
+.main-content {
+  background-color: #f2f7ff;
+  max-width: 100%;
+}
