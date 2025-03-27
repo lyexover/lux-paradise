@@ -1,10 +1,11 @@
 import FiltresBoutique from "@/components/FiltresBoutique";
 import { db } from "@/lib/db";
-import { fetchProduits } from "@/lib/products";
+import { fetchProduits, countProduits } from "@/lib/products";
 import styles from '@/app/modules/boutique.module.css';
 import Image from 'next/image';
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
+import PaginationBoutique from "@/components/PaginationBoutique";
 
 async function fetchCategories(){
     try {
@@ -19,27 +20,30 @@ async function fetchCategories(){
 export default async function BoutiquePage(props) {
     const categories = await fetchCategories()
 
+    const productsPerPage = 3
+
     const searchParams = await props.searchParams
     const query = searchParams.query || "";
     const categorie = searchParams.categorie || "";
     const prix = searchParams.prix || "";
+    const page = Number(searchParams.page) || 1
 
-    const produits = await fetchProduits(query, categorie, prix)
+    const produits = await fetchProduits(query, categorie, prix, page, productsPerPage)
+    const totalProducts = await countProduits(query, categorie)
+    
     const currentDate = new Date()
     const oneMonthAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate())
 
     return (
         <div className={styles.pageContainer}>
-
             <div className={styles.banniereContainer} >
               <Image className={styles.banniere} alt="boutique banniere" width={1480} height={600}  src={'/banniere-boutique.jpg'}/>
             </div>
-
            
             <div className={styles.filterSection}>
                 <h1 className={styles.filterTitle}>Trouvez votre produit idéal</h1>
                 <FiltresBoutique categories={categories} />
-              </div>
+            </div>
 
             <div className={styles.productGrid}>
                 {produits.map(produit => {
@@ -71,6 +75,11 @@ export default async function BoutiquePage(props) {
                     )
                 })}
             </div>
+
+            <PaginationBoutique 
+                totalProducts={totalProducts} 
+                productsPerPage={productsPerPage} 
+            />
         </div>
     )
 }
