@@ -1,40 +1,90 @@
-import styles from '@/app/modules/produit.module.css';
-import { db } from "@/lib/db";
-import Image from 'next/image';
-import { TicketCheck, TicketX, Gem, Star } from 'lucide-react';
+"use client";
 
-export default async function ProductDetailsPage({ params }) {
-  const { id_produit } = await params; // Récupération de l'ID produit
-  const query = 'SELECT * FROM produits WHERE id = ?';
-  const result = await db.query(query, [id_produit]);
-  const produit = result[0][0]; // Vérifie que result[0][0] est correct selon ta DB
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation"; // Import useParams
+import Image from "next/image";
+import styles from "@/app/modules/produit.module.css";
+import { TicketCheck, TicketX, Gem, ShoppingBasket } from "lucide-react";
 
-  const date = new Date();
-  const dateCreation = new Date(produit.timestamp);
-  const nouveaute = date.getFullYear() === dateCreation.getFullYear() && date.getMonth() === dateCreation.getMonth();
+export default function ProductDetailsPage() {
+  const [produit, setProduit] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  console.log(produit);
+  const params = useParams(); // Use the hook to get route parameters
+  const id = params?.id_produit; // Extract the 'id' from the dynamic route
+
+  useEffect(() => {
+    async function fetchProduct() {
+      try {
+        const response = await fetch(`/api/produits/${id}`);
+        if (!response.ok) {
+          throw new Error("Impossible de charger le produit");
+        }
+        const data = await response.json();
+        setProduit(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    }
+
+    if (id) {
+      fetchProduct();
+    }
+  }, [id]); // Dependency on 'id' instead of 'params.id'
+
+  const handleAddToCart = () => {
+    if (!produit) return;
+
+    // Check availability
+    if (produit.disponibilite !== 1) {
+      alert("Produit non disponible");
+      return;
+    }
+
+    // Get existing cart from localStorage
+    const cart = JSON.parse(localStorage.getItem("lux_paradise_cart") || "[]");
+
+    // Add to cart if not already present
+    if (!cart.includes(produit.id.toString())) {
+      cart.push(produit.id.toString());
+      localStorage.setItem("lux_paradise_cart", JSON.stringify(cart));
+      alert("Produit ajouté au panier");
+    } else {
+      alert("Produit déjà dans le panier");
+    }
+  };
+
+  if (loading) return <div>Chargement...</div>;
+  if (error) return <div>Erreur: {error}</div>;
+  if (!produit) return <div>Produit non trouvé</div>;
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>{produit.nom}</h1>
-        
       </div>
 
       <div className={styles.productContainer}>
-
         <div className={styles.left}>
-           <div className={styles.imageContainer}>
-             <Image src={produit.photo} width={400} height={400} alt={produit.nom} />
-           </div>
+          <div className={styles.imageContainer}>
+            <Image
+              src={produit.photo}
+              width={400}
+              height={400}
+              alt={produit.nom}
+              priority
+            />
+          </div>
         </div>
 
         <div className={styles.textContainer}>
           <p>{produit.description}</p>
 
           <div className={styles.badges}>
-            {nouveaute && (
+            {produit.nouveaute && (
               <div className={`${styles.badge} ${styles.newBadge}`}>
                 Nouveau
               </div>
@@ -48,7 +98,7 @@ export default async function ProductDetailsPage({ params }) {
 
           <div className={styles.disponibilite}>
             <p className={styles.disponibTitle}>Disponibilité :</p>
-            <div className={styles.disponibleCard} >
+            <div className={styles.disponibleCard}>
               {produit.disponibilite ? <TicketCheck /> : <TicketX />}
               {produit.disponibilite ? <p>Disponible</p> : <p>Non Disponible</p>}
             </div>
@@ -58,6 +108,13 @@ export default async function ProductDetailsPage({ params }) {
             <div className={`${styles.badge} ${styles.qualityBadge}`}>
               <Gem /> Haute Qualité
             </div>
+          </div>
+
+          <div className={styles.commander} onClick={handleAddToCart}>
+            <h2>COMMANDEZ CE PRODUIT</h2>
+            <button>
+              <ShoppingBasket /> AJOUTER AU PANIER
+            </button>
           </div>
         </div>
       </div>

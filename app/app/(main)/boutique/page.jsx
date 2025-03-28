@@ -55,7 +55,7 @@ export default async function BoutiquePage(props) {
                     const isNew = new Date(produit.timestamp) > oneMonthAgo
 
                     return (
-                        <Link href={''} key={produit.id} className={styles.productCard}>
+                        <Link href={`/boutique/${produit.id}`} state={{produit : produit}} key={produit.id} className={styles.productCard}>
                             {isNew && <div className={styles.newLabel}>Nouveau</div>}
                             <div className={styles.productImageContainer}>
                                 <Image 

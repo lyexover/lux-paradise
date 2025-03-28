@@ -35,11 +35,11 @@
 }
 
 .imageContainer {
-  width: 80%;
+  width: 85%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(225, 225, 243);
+  background-color: rgb(238, 238, 253);
 }
 
 .imageContainer img {
@@ -56,7 +56,7 @@
   gap: 1rem;
   height: 100%;
   margin-bottom: auto;
-  padding: 1rem 0 1rem;
+  padding: 1.5rem 0 1rem;
 }
 
 .textContainer > p {
@@ -64,8 +64,10 @@
   color: var(--primary);
   font-size: 1.1rem;
   justify-self: flex-start;
-  padding: 1.5rem 0 0;
+  padding: 1rem 0 1rem;
   margin-bottom: 0;
+  border-top: 1px solid rgba(5, 5, 255, 0.258);
+  border-bottom: 1px solid rgba(5, 5, 255, 0.258);
 }
 
 .disponibilite {
@@ -118,4 +120,49 @@
 .qualityBadge {
   background-color: var(--primary);
   color: white;
+}
+
+.commander {
+  width: 65%;
+  color: var(--primary);
+  padding: 0.5rem 0 1.8rem 1.5rem;
+  background-color: rgb(238, 238, 253);
+  margin-top: 1rem;
+}
+
+.commander h2 {
+  font-size: 1.7rem;
+  font-weight: 750;
+  letter-spacing: 0px;
+}
+
+.commander button {
+  display: flex;
+  align-items: center;
+  border: none;
+  gap: 0.2rem;
+  background-color: white;
+  color: var(--primary);
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  animation: pulse 1.5s infinite;
+  border-radius: 1rem;
+}
+
+.commander button:hover {
+  opacity: 0.8;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.03);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

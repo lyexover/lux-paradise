@@ -45,3 +45,34 @@ catch(err){
 }
 
 }
+
+
+
+
+export async function GET(request, { params }) {
+    try {
+      const { id } = await params;
+      const query = 'SELECT * FROM produits WHERE id = ?';
+      const result = await db.query(query, [id]);
+  
+      if (result[0].length === 0) {
+        return NextResponse.json({ message: 'Produit non trouvé' }, { status: 404 });
+      }
+  
+      const produit = result[0][0];
+  
+      // Calculate nouveaute
+      const date = new Date();
+      const dateCreation = new Date(produit.timestamp);
+      const nouveaute = date.getFullYear() === dateCreation.getFullYear() && 
+                        date.getMonth() === dateCreation.getMonth();
+  
+      return NextResponse.json({
+        ...produit,
+        nouveaute
+      });
+    } catch (error) {
+      console.error('Erreur lors de la récupération du produit:', error);
+      return NextResponse.json({ message: 'Erreur serveur' }, { status: 500 });
+    }
+  }
