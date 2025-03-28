@@ -58,10 +58,19 @@ export default function ProductForm({ categories, produit, onSuccess }) {
         <input 
           type="text" 
           name="description" 
-          placeholder="Description" 
+          placeholder="Courte Description" 
           defaultValue={produit?.description || ""}
           required 
         />
+
+        <input 
+          type="text"
+          name="infos"
+          placeholder="Longue Description"
+          defaultValue={produit?.description || ""}
+          required
+        />
+
         <input 
           type="number" 
           name="prix" 

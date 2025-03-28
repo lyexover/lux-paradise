@@ -20,6 +20,7 @@ export async function POST(req) {
     const description = formData.get("description");
     const prix = formData.get("prix");
     const categoryId = formData.get("category");
+    const infos = formData.get("infos")
     
     // Handle the file
     const file = formData.get("image");
@@ -45,8 +46,8 @@ export async function POST(req) {
     }
 
     // Insert into database
-    const query = "INSERT INTO produits (nom, description, prix, photo, categorie_id) VALUES (?, ?, ?, ?, ?)";
-    await db.query(query, [nom, description, prix, imagePath, categoryId]);
+    const query = "INSERT INTO produits (nom, description, prix, photo, categorie_id, infos) VALUES (?, ?, ?, ?, ?, ?)";
+    await db.query(query, [nom, description, prix, imagePath, categoryId, infos]);
 
     return NextResponse.json({ success: true });
   } catch (error) {

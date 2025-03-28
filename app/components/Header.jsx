@@ -21,7 +21,7 @@ export default function Header() {
 
                     <div className={styles.links}>
                         <a href="#nouveautes">NOUVEAUTÉS</a>
-                        <Link href={''}>PRODUITS</Link>
+                        <Link href={'/boutique'}>PRODUITS</Link>
                         <a href="#aPropos">À PROPOS</a>
                         <a href="#categories">CATÉGORIES</a>
                     </div>
@@ -41,7 +41,7 @@ export default function Header() {
                 
                 <div className={styles.links}>
                     <a href="#nouveautes" onClick={toggleMenu}>NOUVEAUTÉS</a>
-                    <Link href={''} onClick={toggleMenu}>PRODUITS</Link>
+                    <Link href={'/boutique'} onClick={toggleMenu}>PRODUITS</Link>
                     <a href="#aPropos" onClick={toggleMenu}>À PROPOS</a>
                     <a href="#categories" onClick={toggleMenu}>CATÉGORIES</a>
                 </div>

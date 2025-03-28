@@ -1,0 +1,121 @@
+.container {
+  margin: 0;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+
+  background-color: white;
+  width: 100%;
+}
+
+.container h1 {
+  font-size: 2.8rem;
+  color: var(--primary);
+  text-transform: uppercase;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 0;
+  line-height: 1.3rem;
+  letter-spacing: -1px;
+}
+
+.productContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  padding: 2rem;
+}
+
+.imageContainer {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(225, 225, 243);
+}
+
+.imageContainer img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.textContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 100%;
+  margin-bottom: auto;
+  padding: 1rem 0 1rem;
+}
+
+.textContainer > p {
+  max-width: 83%;
+  color: var(--primary);
+  font-size: 1.1rem;
+  justify-self: flex-start;
+  padding: 1.5rem 0 0;
+  margin-bottom: 0;
+}
+
+.disponibilite {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.disponibTitle {
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: var(--primary);
+}
+
+.disponibleCard {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid;
+  width: fit-content;
+  padding: 0 0.8rem;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.newBadge {
+  background-color: #ff4081;
+  color: white;
+}
+
+.qualityBadge {
+  background-color: var(--primary);
+  color: white;
+}

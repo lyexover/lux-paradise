@@ -41,6 +41,7 @@
 }
 .left .links a:hover {
   font-weight: 550;
+  color: rgb(4, 4, 193);
 }
 
 .right {
