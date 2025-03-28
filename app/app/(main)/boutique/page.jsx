@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import PaginationBoutique from "@/components/PaginationBoutique";
+import BreadCrumbs from "@/components/BreadCrumbs";
 
 async function fetchCategories(){
     try {
@@ -36,10 +37,14 @@ export default async function BoutiquePage(props) {
 
     return (
         <div className={styles.pageContainer}>
+
+         <BreadCrumbs/>
+
             <div className={styles.banniereContainer} >
               <Image className={styles.banniere} alt="boutique banniere" width={1480} height={600}  src={'/banniere-boutique.jpg'}/>
             </div>
            
+        
             <div className={styles.filterSection}>
                 <h1 className={styles.filterTitle}>Trouvez votre produit idéal</h1>
                 <FiltresBoutique categories={categories} />
