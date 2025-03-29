@@ -25,7 +25,7 @@ export async function Nouveautes() {
             <h1 className={styles.sectionTitle}>NOUVEAUX TRÉSORS !</h1>
             <div className={styles.nouveautesContainer}> 
                 {produits.map((produit) => (
-                    <Link href={''} key={produit.id} className={styles.produitCard}>
+                    <Link href={`/boutique/${produit.id}`} key={produit.id} className={styles.produitCard}>
                         <div className={styles.imageContainer}>
                             <Image 
                                 className={styles.productImage} 

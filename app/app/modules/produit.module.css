@@ -1,6 +1,6 @@
 .container {
   margin: 0;
-  padding: 2rem 1rem;
+  padding: 2rem 0;
   display: flex;
   flex-direction: column;
 
@@ -165,4 +165,22 @@
   100% {
     transform: scale(1);
   }
+}
+
+.infos {
+  padding: 2rem 2rem 2rem 5rem;
+}
+
+.infos h2 {
+  font-size: 2rem;
+  color: var(--primary);
+  font-weight: 750;
+  margin-bottom: 0;
+}
+
+.infos p {
+  color: var(--primary);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  width: 90%;
 }

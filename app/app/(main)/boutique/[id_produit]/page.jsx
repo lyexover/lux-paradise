@@ -5,6 +5,7 @@ import { useParams } from "next/navigation"; // Import useParams
 import Image from "next/image";
 import styles from "@/app/modules/produit.module.css";
 import { TicketCheck, TicketX, Gem, ShoppingBasket } from "lucide-react";
+import Suggestion from "@/components/Suggestions";
 
 export default function ProductDetailsPage() {
   const [produit, setProduit] = useState(null);
@@ -118,6 +119,17 @@ export default function ProductDetailsPage() {
           </div>
         </div>
       </div>
+
+      
+
+
+      <div className={styles.infos} >
+        <h2>PLUS D'INFORMATIONS SUR CE PRODUIT</h2>
+        <p>{produit.infos}</p>
+      </div>
+
+      <Suggestion categorie={produit.categorie_id}/>
+
     </div>
   );
 }
