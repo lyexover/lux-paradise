@@ -165,6 +165,8 @@
   background-color: rgb(238, 238, 253);
   padding: 1.5rem;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .summaryRow {
@@ -184,18 +186,20 @@
 }
 
 .checkoutButton {
-  width: 100%;
+  width: 90%;
   background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 25px;
   padding: 1rem;
-  margin-top: 1.5rem;
+  margin: 1.5rem auto;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   animation: pulse 1.5s infinite;
   transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
 }
 
 .checkoutButton:hover {
@@ -253,6 +257,17 @@
   .productActions {
     flex-direction: column;
     gap: 1rem;
+    margin: 0 auto;
+  }
+
+  .cartSummary {
+    padding: 0;
+  }
+  .summaryRow {
+    padding: 1rem 1.5rem;
+  }
+  .checkoutButton {
+    width: 80%;
   }
 }
 
