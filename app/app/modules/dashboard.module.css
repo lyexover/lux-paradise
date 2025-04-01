@@ -619,7 +619,7 @@
 }
 
 .commandesHead h1 {
-  color: #2d3748;
+  color: var(--primary, #003da5);
   font-size: 1.8rem;
   font-weight: 600;
   text-transform: capitalize;
@@ -658,8 +658,8 @@
 }
 
 .commandesTable th {
-  background-color: #f8fafc;
-  color: #4a5568;
+  background-color: var(--primary, #003da5);
+  color: white;
   font-weight: 600;
   text-align: left;
   padding: 1rem;
@@ -793,5 +793,89 @@
 
   .commandesHead h1 {
     font-size: 1.5rem;
+  }
+}
+
+/* pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+  padding: 1rem 0;
+}
+
+.paginationButton {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #4a5568;
+  transition: all 0.2s ease;
+}
+
+.paginationButton:hover:not(:disabled) {
+  background-color: #f8f9fa;
+  color: var(--primary);
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageNumbers {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pageNumber {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pageNumber:hover {
+  background-color: #f0f7ff;
+}
+
+.activePage {
+  background-color: var(--primary, #003da5);
+  color: white;
+  border-color: var(--primary, #003da5);
+}
+
+.pageInfo {
+  margin-left: 15px;
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pageNumbers {
+    margin: 10px 0;
+  }
+
+  .pageInfo {
+    margin-left: 0;
+    margin-top: 10px;
+    text-align: center;
   }
 }
