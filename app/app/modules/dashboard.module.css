@@ -601,3 +601,197 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* commandes =================================================*/
+.commandesContainer {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #f5f7fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.commandesHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.commandesHead h1 {
+  color: #2d3748;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.filterSelect {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  min-width: 250px;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #4a5568;
+  cursor: pointer;
+}
+
+.filterSelect:focus {
+  border-color: var(--primary, #003da5);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 61, 165, 0.1);
+}
+
+.commandesList {
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.commandesTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.commandesTable th {
+  background-color: #f8fafc;
+  color: #4a5568;
+  font-weight: 600;
+  text-align: left;
+  padding: 1rem;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.commandesTable th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.commandesTable th:last-child {
+  border-top-right-radius: 10px;
+}
+
+.commandesTable td {
+  padding: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #2d3748;
+  font-size: 0.95rem;
+}
+
+.commandeRow {
+  transition: all 0.3s ease;
+}
+
+.commandeRow:hover {
+  background-color: rgba(0, 61, 165, 0.03);
+}
+
+.commandeRow:last-child td {
+  border-bottom: none;
+}
+
+.totalColumn {
+  font-weight: 600;
+  color: var(--primary, #003da5);
+}
+
+.statusSelect {
+  padding: 0.6rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  min-width: 130px;
+  background-color: white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.statusSelect:focus {
+  border-color: var(--primary, #003da5);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 61, 165, 0.1);
+}
+
+/* Status select customization based on current status */
+.statusSelect[data-status="en attente"] {
+  background-color: #fef9c3;
+  border-color: #fde047;
+  color: #854d0e;
+}
+
+.statusSelect[data-status="traitee"] {
+  background-color: #e0f2fe;
+  border-color: #7dd3fc;
+  color: #0369a1;
+}
+
+.statusSelect[data-status="livree"] {
+  background-color: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.statusSelect[data-status="annulee"] {
+  background-color: #fee2e2;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.statusSelect[data-status="finalisee"] {
+  background-color: #e0e7ff;
+  border-color: #c7d2fe;
+  color: #4338ca;
+}
+
+.statusSelect[data-status="retournee"] {
+  background-color: #fef3c7;
+  border-color: #fcd34d;
+  color: #92400e;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .commandesHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .filterSelect {
+    width: 100%;
+  }
+
+  .commandesContainer {
+    padding: 1.5rem 1rem;
+  }
+
+  .commandesTable th,
+  .commandesTable td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .statusSelect {
+    min-width: 100px;
+    padding: 0.5rem;
+  }
+}
+
+/* For smaller screens, add horizontal scrolling */
+@media (max-width: 480px) {
+  .commandesList {
+    overflow-x: auto;
+  }
+
+  .commandesTable {
+    min-width: 700px;
+  }
+
+  .commandesHead h1 {
+    font-size: 1.5rem;
+  }
+}

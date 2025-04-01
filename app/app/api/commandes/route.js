@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   // On va obtenir une connexion depuis le pool
@@ -69,5 +70,23 @@ export async function POST(req) {
     if (connection) {
       connection.release();
     }
+  }
+}
+
+export async function GET() {
+  const query = "SELECT * FROM commandes";
+
+  try {
+    const [rows] = await db.query(query);
+
+    return new Response(
+      JSON.stringify({ message: "Commandes fetchées avec succès", rows }), 
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ error: "Erreur de base de données" }), 
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
   }
 }
