@@ -95,6 +95,17 @@
   color: white;
   border-radius: 0.5rem;
 }
+.indisponibleCard {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid;
+  width: fit-content;
+  padding: 0 0.8rem;
+  background-color: #bb2424;
+  color: white;
+  border-radius: 0.5rem;
+}
 
 .badges {
   display: flex;

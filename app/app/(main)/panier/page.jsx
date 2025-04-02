@@ -11,6 +11,9 @@ export default function Page() {
   const [categories, setCategories] = useState([]);
   const [showForm, setShowForm] = useState(false); // État pour afficher/masquer le formulaire
 
+
+
+
   // Récupérer les données du panier depuis localStorage
   useEffect(() => {
     const storedCart = localStorage.getItem("lux_paradise_cart");
@@ -93,6 +96,8 @@ export default function Page() {
     );
     setCart(nouveauPanier);
     localStorage.setItem("lux_paradise_cart", JSON.stringify(nouveauPanier));
+    
+    setProduits(prevProduits => prevProduits.filter(p => p.id.toString() !== id.toString()));
   };
 
   return (

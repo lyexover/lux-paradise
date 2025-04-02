@@ -3,17 +3,23 @@
 import Image from "next/image"
 import Link from "next/link"
 import styles from "@/app/modules/dashboard.module.css"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { ChartNoAxesCombined, PackageOpen, Warehouse } from 'lucide-react'
+import { logOut } from "@/lib/actions" // Importez votre action serveur
 
 export default function DashboardNav() {
     const pathname = usePathname()
+    const router = useRouter()
     
     const isActive = (path) => {
         if (path === '/dashboard') {
             return pathname === '/dashboard'
         }
         return pathname.startsWith(path)
+    }
+    
+    const handleLogout = async () => {
+        await logOut()
     }
 
     return (
@@ -28,7 +34,7 @@ export default function DashboardNav() {
                 </ul>
             </div>
 
-            <button>Se déconnecter</button>
+            <button onClick={handleLogout}>Se déconnecter</button>
         </div>
     )
 }

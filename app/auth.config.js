@@ -14,7 +14,9 @@ export const authConfig= {
                 return false
             }
 
-            return true
+            if(isLogged){return true}
+            return false
+            
         }
     } , 
     providers: []

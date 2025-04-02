@@ -97,16 +97,13 @@ export default function ProductDetailsPage() {
                 Nouveau
               </div>
             )}
-            {produit.vegan && (
-              <div className={`${styles.badge} ${styles.veganBadge}`}>
-                Végan
-              </div>
-            )}
+            
           </div>
 
           <div className={styles.disponibilite}>
             <p className={styles.disponibTitle}>Disponibilité :</p>
-            <div className={styles.disponibleCard}>
+            <div className={produit.disponibilite === 1 ? styles.disponibleCard : styles.indisponibleCard}>
+
               {produit.disponibilite ? <TicketCheck /> : <TicketX />}
               {produit.disponibilite ? <p>Disponible</p> : <p>Non Disponible</p>}
             </div>

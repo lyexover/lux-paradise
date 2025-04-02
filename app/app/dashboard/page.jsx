@@ -115,7 +115,7 @@ const DashboardStatistiques = () => {
           </div>
           <div className={styles.cardContent}>
             <div className={styles.statValue}>
-              {commandes.reduce((sum, cmd) => sum + cmd.total, 0).toLocaleString()} DA
+              {commandes.reduce((sum, cmd) => sum + Number(cmd.total), 0)} DA
             </div>
           </div>
         </div>
