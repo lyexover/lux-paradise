@@ -1,20 +1,35 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { Search, ShoppingCart, Store, Menu, X } from "lucide-react"
 import styles from '@/app/modules/header.module.css'
+import { useCart } from "@/app/context/cartContext"
 
-export default function Header() {
+export default  function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [query, setQuery] = useState('')  // pour la recherche
+    const [showSearch, setShowSearch] = useState(false)
+
+    const {cartLength} = useCart()
+    const router = useRouter()
     
+  const handleSearch = ()=> {
+    setQuery('')
+      router.push(`/boutique?query=${query}`)
+      
+  }
     
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
     
+    const toggleSearch = ()=> {
+        setShowSearch(prev => !prev)
+    }
+
     return (
         
             <header className={styles.header}>
@@ -31,9 +46,9 @@ export default function Header() {
                 </div>
 
                 <div className={styles.right}>
-                    <Link href={''} ><Search size={35} /></Link>
-                    <Link href={'/panier'} ><ShoppingCart size={35} /></Link>
-                    <Link href={'/boutique'} ><Store size={35} /></Link>
+                    <Link href={''} onClick={toggleSearch} ><Search size={35} /></Link>
+                    <Link href={'/panier'} ><ShoppingCart  size={35} /><span>{cartLength}</span></Link>
+                    <Link href={'/boutique'} ><Store size={35} /> </Link>
                     <Menu size={38} className={styles.menuToggle} onClick={toggleMenu} />
                 </div>
             
@@ -56,6 +71,14 @@ export default function Header() {
                 </div>
             </div>
 
+
+         { showSearch &&
+            <div className={styles.searchContainer}>
+               
+                <input type="text" name="query" value={query} onChange={(e)=> setQuery(e.target.value)} placeholder="Recherchez un Produit.." />
+                <button onClick={handleSearch}>Rechercher</button>
+            </div>
+           }
             </header>
         
     )

@@ -34,9 +34,7 @@ export async function Nouveautes() {
                                 src={produit.photo} 
                                 alt={produit.nom} 
                             />
-                            <button className={styles.cartButton}>
-                                <ShoppingCart size={20} color="white" />
-                            </button>
+                           
                         </div>
                         <div className={styles.productInfo}>
                             <p className={styles.categoryName}>{categoriesMap[produit.categorie_id]}</p>

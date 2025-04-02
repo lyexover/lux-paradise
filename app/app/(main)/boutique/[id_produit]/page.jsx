@@ -6,11 +6,13 @@ import Image from "next/image";
 import styles from "@/app/modules/produit.module.css";
 import { TicketCheck, TicketX, Gem, ShoppingBasket } from "lucide-react";
 import Suggestion from "@/components/Suggestions";
+import { useCart } from "@/app/context/cartContext";
 
 export default function ProductDetailsPage() {
   const [produit, setProduit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const {cartLength, setCartLength} = useCart()
 
   const params = useParams(); // Use the hook to get route parameters
   const id = params?.id_produit; // Extract the 'id' from the dynamic route
@@ -52,6 +54,7 @@ export default function ProductDetailsPage() {
     if (!cart.includes(produit.id.toString())) {
       cart.push(produit.id.toString());
       localStorage.setItem("lux_paradise_cart", JSON.stringify(cart));
+      setCartLength(cartLength+1)
       alert("Produit ajouté au panier");
     } else {
       alert("Produit déjà dans le panier");
@@ -83,6 +86,10 @@ export default function ProductDetailsPage() {
 
         <div className={styles.textContainer}>
           <p>{produit.description}</p>
+
+          <div className={styles.price}>
+              <span>{produit.prix} DA</span>
+             </div>
 
           <div className={styles.badges}>
             {produit.nouveaute && (
@@ -128,7 +135,7 @@ export default function ProductDetailsPage() {
         <p>{produit.infos}</p>
       </div>
 
-      <Suggestion categorie={produit.categorie_id}/>
+      <Suggestion id={id} categorie={produit.categorie_id}/>
 
     </div>
   );

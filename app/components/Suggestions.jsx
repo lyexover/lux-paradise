@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-export default function Suggestion({ categorie }) {
+export default function Suggestion({ id, categorie }) {
     const [categories, setCategories] = useState([])
     const [produits, setProduits] = useState([])
 
@@ -42,7 +42,7 @@ export default function Suggestion({ categorie }) {
         <div className={styles.container}>
             <h2>DANS LA MÊME CATÉGORIE</h2>
             <div className={styles.produits}>
-            {produits.map(produit => (
+            {produits.filter(p => p.id != id).map(produit => (
                 <Link href={`/boutique/${produit.id}`} className={styles.card} key={produit.id}>
                     <div className={styles.left}>
                         {produit.disponibilite != 1 ? (

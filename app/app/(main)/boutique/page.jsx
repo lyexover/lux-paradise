@@ -4,7 +4,6 @@ import { fetchProduits, countProduits } from "@/lib/products";
 import styles from '@/app/modules/boutique.module.css';
 import Image from 'next/image';
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
 import PaginationBoutique from "@/components/PaginationBoutique";
 
 
@@ -21,7 +20,7 @@ async function fetchCategories(){
 export default async function BoutiquePage(props) {
     const categories = await fetchCategories()
 
-    const productsPerPage = 3
+    const productsPerPage = 16
 
     const searchParams = await props.searchParams
     const query = searchParams.query || "";
@@ -73,7 +72,7 @@ export default async function BoutiquePage(props) {
                                 <p className={styles.productName}>{produit.nom}</p>
                                 <div className={styles.productPriceContainer}>
                                     <span className={styles.productPrice}>{produit.prix} DA</span>
-                                    <button className={styles.buyButton}> <ShoppingCart size={20} color="white" /></button>
+                                    {/* <button  className={styles.buyButton}> <ShoppingCart size={20} color="white" /></button> */}
                                 </div>
                             </div>
                         </Link>

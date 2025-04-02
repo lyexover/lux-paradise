@@ -15,7 +15,7 @@ export async function Categories() {
             <div className={styles.categoriesContainer}>
                 {categories.map((categorie) => (
                     <Link 
-                        href="" 
+                        href={`/boutique?categorie=${categorie.id}`} 
                         key={categorie.id} 
                         className={styles.categoryCard}
                     >

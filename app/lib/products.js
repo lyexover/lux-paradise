@@ -18,11 +18,13 @@ export async function fetchProduits(query, categorie, prix, page = 1, productsPe
             queryParams.push(categorie)
         }
 
+        baseQuery += ' ORDER BY timestamp DESC'
+
         if(prix === 'asc'){
-            baseQuery += ' ORDER BY prix ASC'
+            baseQuery += ', prix ASC'
         }
         else if(prix === 'desc'){
-            baseQuery += ' ORDER BY prix DESC'
+            baseQuery += ', prix DESC'
         }
 
         const offset = (page - 1) * productsPerPage

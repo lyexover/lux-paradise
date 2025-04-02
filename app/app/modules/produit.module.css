@@ -214,3 +214,43 @@
     padding: 1rem 0 1rem 2.5rem;
   }
 }
+
+.price {
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.price span {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0046ad;
+  background: rgba(0, 70, 173, 0.05);
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 70, 173, 0.1);
+  position: relative;
+}
+
+.price span::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 10%;
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 70, 173, 0.3),
+    transparent
+  );
+}
+
+@media screen and (max-width: 768px) {
+  .price span {
+    font-size: 1.6rem;
+    padding: 0.4rem 1.2rem;
+  }
+}

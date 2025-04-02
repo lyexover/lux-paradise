@@ -269,7 +269,7 @@
 /* Enhanced Product Grid */
 .productGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   max-width: 1280px;
   margin: 0 auto;
@@ -297,7 +297,6 @@
 .productCard:hover {
   box-shadow: 0 15px 30px rgba(0, 70, 173, 0.15);
   border-color: rgba(0, 70, 173, 0.2);
-  transform: translateY(-5px);
 }
 
 @keyframes fadeInProduct {
