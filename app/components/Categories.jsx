@@ -10,7 +10,7 @@ export async function Categories() {
     const categories = result[0]
 
     return (
-        <section className={styles.categoriesSection}>
+        <section id='categories' className={styles.categoriesSection}>
             <h2 className={styles.sectionTitle}>DECOUVREZ NOS CATÉGORIES DE PRODUITS</h2>
             <div className={styles.categoriesContainer}>
                 {categories.map((categorie) => (

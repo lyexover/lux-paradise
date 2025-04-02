@@ -26,7 +26,7 @@ export default function Page(){
                 }
                 const data = await response.json()
                 
-                setCommandes(data.rows)
+                setCommandes(data.rows.reverse())
                 setLoading(false)
             }
             catch(err){

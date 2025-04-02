@@ -8,6 +8,7 @@ export async function POST(req) {
   try {
     // Récupérer les données du corps de la requête
     const { data, produits } = await req.json();
+    console.log(produits)
 
     const { nom, prenom, wilaya, commune, numero, email, totalAPayer } = data;
 

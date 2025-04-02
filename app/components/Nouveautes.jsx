@@ -21,7 +21,7 @@ export async function Nouveautes() {
     })
     
     return (
-        <div className={styles.nouveautesSection}>
+        <div  id='nouveautes' className={styles.nouveautesSection}>
             <h1 className={styles.sectionTitle}>NOUVEAUX TRÉSORS !</h1>
             <div className={styles.nouveautesContainer}> 
                 {produits.map((produit) => (

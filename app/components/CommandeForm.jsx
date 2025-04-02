@@ -1,8 +1,20 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/app/modules/commandeForm.module.css";
 
 export default function CommandeForm({ cart, total }) {
+  const [formattedCart, setFormattedCart] = useState([]);
+
+  useEffect(() => {
+    const transformedCart = cart.map((element) => ({
+      id: element,
+      quantite: 1,
+    }));
+    setFormattedCart(transformedCart);
+  }, [cart]);
+
+  console.log(formattedCart); // Cela affichera bien la version mise à jour
+
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
@@ -15,7 +27,6 @@ export default function CommandeForm({ cart, total }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Gérer les changements dans les inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -24,7 +35,6 @@ export default function CommandeForm({ cart, total }) {
     }));
   };
 
-  // Gérer la soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -38,7 +48,7 @@ export default function CommandeForm({ cart, total }) {
         },
         body: JSON.stringify({
           data: formData,
-          produits: cart,
+          produits: formattedCart,
         }),
       });
 
@@ -59,7 +69,7 @@ export default function CommandeForm({ cart, total }) {
         totalAPayer: total,
       });
 
-      localStorage.removeItem('lux_paradise_cart')
+      localStorage.removeItem('lux_paradise_cart');
 
     } catch (error) {
       setMessage(`Erreur : ${error.message}`);
