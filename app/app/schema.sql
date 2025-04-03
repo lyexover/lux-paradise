@@ -35,3 +35,17 @@ CREATE TABLE produits_commandes (
     FOREIGN KEY (commande_id) REFERENCES commandes(id) ON DELETE CASCADE,
     FOREIGN KEY (produit_id) REFERENCES produits(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+CREATE TABLE admin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    password VARCHAR(255) NOT NULL
+)ENGINE=InnoDB;
+
+
+INSERT INTO categories(nom) VALUES 
+('Soins du visage'), 
+('Soins du corps'), 
+('Hygiène & Douche'), 
+('Protection solaire');
+
+

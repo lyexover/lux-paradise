@@ -6,6 +6,21 @@ import {db} from "@/lib/db.js";
 
 
 
+
+//cette fonction est juste pour afficher le mot de passe hache pour le stocker en bdd c'est tout
+bcrypt.hash("secretKey", 10, (err, hashedPassword)=> {
+  if(err){
+    console.error(err)
+    return
+  }
+
+  console.log(`mot de passe a stocker : ${hashedPassword}`)
+})
+
+//=====================================================================
+
+
+
 async function getPassword() {
   try {
     const [results] = await db.query('SELECT password FROM admin LIMIT 1');

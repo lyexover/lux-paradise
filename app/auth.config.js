@@ -14,8 +14,8 @@ export const authConfig= {
                 return false
             }
 
-            if(isLogged){return true}
-            return false
+            
+            return true
             
         }
     } , 
