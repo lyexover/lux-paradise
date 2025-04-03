@@ -24,7 +24,8 @@ CREATE TABLE commandes (
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
     numero_telephone VARCHAR(20) NOT NULL,
-    email VARCHAR(255)
+    email VARCHAR(255), 
+    etat ENUM('en attente', 'traitee', 'livree', 'annulee', 'finalisee', 'retournee') DEFAULT 'en attente'
 ) ENGINE=InnoDB;
 
 CREATE TABLE produits_commandes (
