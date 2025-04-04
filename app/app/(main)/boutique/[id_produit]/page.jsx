@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation"; // Import useParams
 import Image from "next/image";
 import styles from "@/app/modules/produit.module.css";
-import { TicketCheck, TicketX, Gem, ShoppingBasket } from "lucide-react";
+import { TicketCheck, TicketX, Gem, ShoppingBasket, ShieldCheck, ShieldX } from "lucide-react";
 import Suggestion from "@/components/Suggestions";
 import { useCart } from "@/app/context/cartContext";
 
@@ -12,6 +12,8 @@ export default function ProductDetailsPage() {
   const [produit, setProduit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const {cartLength, setCartLength} = useCart()
 
   const params = useParams(); // Use the hook to get route parameters
@@ -55,9 +57,9 @@ export default function ProductDetailsPage() {
       cart.push(produit.id.toString());
       localStorage.setItem("lux_paradise_cart", JSON.stringify(cart));
       setCartLength(cartLength+1)
-      alert("Produit ajouté au panier");
+      setShowMessage(true);
     } else {
-      alert("Produit déjà dans le panier");
+      setShowAlert(true);
     }
   };
 
@@ -120,7 +122,23 @@ export default function ProductDetailsPage() {
             <button>
               <ShoppingBasket /> AJOUTER AU PANIER
             </button>
+            {
+            showMessage && (
+              <div className={styles.message}>
+                <ShieldCheck /> <p>Produit ajouté au panier !</p>
+              </div>
+            )
+          }  
+          {
+            showAlert && (
+              <div className={styles.alert}>
+                <ShieldX /> <p>Produit déjà dans le panier !</p>
+              </div>
+            )
+          }
           </div>
+
+          
         </div>
       </div>
 

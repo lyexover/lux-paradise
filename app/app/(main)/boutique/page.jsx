@@ -29,7 +29,7 @@ export default async function BoutiquePage(props) {
     const page = Number(searchParams.page) || 1
 
     const produits = await fetchProduits(query, categorie, prix, page, productsPerPage)
-    const totalProducts = await countProduits(query, categorie)
+    const totalProducts = produits.length
     
     const currentDate = new Date()
     const oneMonthAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate())
@@ -49,6 +49,11 @@ export default async function BoutiquePage(props) {
                 <FiltresBoutique categories={categories} />
             </div>
 
+
+           { produits.length === 0 ? (
+                <div className={styles.noProductsMessage}>
+                    Aucun produit trouvé pour cette recherche.
+                </div> ) :(
             <div className={styles.productGrid}>
                 {produits.map(produit => {
                     const isNew = new Date(produit.timestamp) > oneMonthAgo
@@ -79,11 +84,14 @@ export default async function BoutiquePage(props) {
                     )
                 })}
             </div>
+                )}
 
+          { produits.length > 0 && 
             <PaginationBoutique 
                 totalProducts={totalProducts} 
                 productsPerPage={productsPerPage} 
             />
+          }
         </div>
     )
 }

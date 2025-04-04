@@ -611,6 +611,12 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+.confirmationMessage {
+  color: #38a169;
+  display: block;
+  padding-top: 10px;
+}
+
 .commandesHead {
   display: flex;
   justify-content: space-between;

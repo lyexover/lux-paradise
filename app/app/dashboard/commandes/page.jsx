@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import styles from '@/app/modules/dashboard.module.css'
+import {ShieldCheck } from 'lucide-react'
 
 export default function Page(){
     const [commandes, setCommandes] = useState([])
@@ -9,6 +10,8 @@ export default function Page(){
     const etats = ['en attente', 'traitee', 'livree', 'annulee', 'finalisee', 'retournee']; // liste des etats possibles de commandes
     const [loading, setLoading] = useState(true)
     const [etatChoisi, setEtatChoisi] = useState('')   //state pour stocker l'etat du filtre
+    const [showMessage, setShowMessage] = useState(false) //state pour afficher le message de confirmation
+    const [message, setMessage] = useState({id : '' , message : ''}) //state pour le message de confirmation
     
     // States pour la pagination
     const [currentPage, setCurrentPage] = useState(1)
@@ -64,7 +67,11 @@ export default function Page(){
             }
 
             const data = await response.json()
-            window.alert(data.message)
+            setMessage({id : id , message : 'État mis à jour !'}) // Mettre à jour le message de confirmation
+            setShowMessage(true) // Afficher le message de confirmation
+            setTimeout(() => {
+                setShowMessage(false) // Cacher le message après 2 secondes
+            }, 2000)
             
             // Mettre à jour l'état de la commande dans le state local
             const updatedCommandes = commandes.map(commande => {
@@ -99,6 +106,7 @@ export default function Page(){
         <div className={styles.commandesContainer}>
             <div className={styles.commandesHead}>
                 <h1>Gestion des commandes</h1>
+                
                 <select onChange={(e => setEtatChoisi(e.target.value))} className={styles.filterSelect} name="etat">
                     <option value="">Filtrer par état de commande</option>
                     {
@@ -148,6 +156,7 @@ export default function Page(){
                                                 ))
                                             }
                                         </select>
+                                        {showMessage && message.id == commande.id && <span className={styles.confirmationMessage}>{message.message}</span>}
                                     </td>
                                 </tr>
                             ))

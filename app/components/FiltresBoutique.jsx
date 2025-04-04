@@ -5,14 +5,15 @@ import { X, Funnel } from "lucide-react"
 import styles from '@/app/modules/boutique.module.css'
 
 export default function FiltresBoutique({categories}){
-   const [query, setQuery] = useState('')
-   const [categorie, setCategorie] = useState('')
-   const [prix, setPrix] = useState('')
-   const [showMobileFilters, setShowMobileFilters] = useState(false)
-
+   
    const searchParams = useSearchParams()
    const {replace} = useRouter()
    const pathname = usePathname()
+
+   const [query, setQuery] = useState(searchParams.get('query') || '')
+   const [categorie, setCategorie] = useState(searchParams.get('categorie') || '')
+   const [prix, setPrix] = useState(searchParams.get('prix') || '')
+   const [showMobileFilters, setShowMobileFilters] = useState(false)
 
    function handleSubmit(e){
     e.preventDefault()
@@ -64,8 +65,8 @@ export default function FiltresBoutique({categories}){
                             placeholder="Rechercher un produit.." 
                             type="text" 
                             name="query" 
-                            value={query} 
                             onChange={(e) => setQuery(e.target.value)}
+                            value={query}
                         />
                         
                         <select 

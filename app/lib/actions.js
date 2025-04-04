@@ -31,5 +31,5 @@ export async function login(currentState, formData) {
 
 
 export async function logOut(){
-  await signOut({redirectTo : '/auth'})
+  await signOut({redirectTo : '/'})
 }
