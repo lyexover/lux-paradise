@@ -1,101 +1,187 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
-  backdrop-filter: blur(5px); /* Effet de flou en arrière-plan */
-  z-index: 1000; /* Z-index élevé pour être au-dessus du contenu */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-.formContainer {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
   position: relative;
 }
 
-.title {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  text-align: center;
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
   color: #333;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  position: absolute;
+  left: 0;
+}
+
+.backButton:hover {
+  background-color: #f5f5f5;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+.formContainer {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1.5rem;
+}
+
+.formRow {
+  display: flex;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 .formGroup {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .formGroup label {
-  font-weight: bold;
-  margin-bottom: 5px;
+  font-size: 0.9rem;
   color: #555;
+  margin-bottom: 0.4rem;
 }
 
 .input {
-  padding: 10px;
+  padding: 0.8rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  transition: border-color 0.2s;
 }
 
 .input:focus {
-  border-color: #0070f3;
+  border-color: #0066cc;
   outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
 }
 
-.total {
-  font-size: 1.1rem;
+.orderSummary {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.orderSummary h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
   color: #333;
-  margin: 0;
 }
 
-.submitButton {
-  background-color: #0070f3;
-  color: white;
-  padding: 12px 20px;
-  border: none;
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.totalPrice {
+  font-weight: 600;
+  color: #0066cc;
+  font-size: 1.3rem;
+}
+
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 500px) {
+  .formActions {
+    flex-direction: column;
+  }
+}
+
+.cancelButton {
+  padding: 0.8rem 1.5rem;
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
+}
+
+.cancelButton:hover {
+  background-color: #eaeaea;
+}
+
+.submitButton {
+  padding: 0.8rem 1.5rem;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex: 1;
 }
 
 .submitButton:hover {
-  background-color: #005bb5;
+  background-color: #0055aa;
 }
 
 .submitButton:disabled {
-  background-color: #ccc;
+  background-color: #99c2ff;
   cursor: not-allowed;
 }
 
 .message {
-  margin-top: 15px;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 4px;
   text-align: center;
-  color: #28a745; /* Vert pour succès */
-}
-
-.message:empty {
-  display: none;
-}
-
-/* Si erreur, tu peux ajouter une classe dynamique dans le JSX */
-.message.error {
-  color: #dc3545; /* Rouge pour erreur */
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }

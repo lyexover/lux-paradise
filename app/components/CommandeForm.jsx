@@ -69,8 +69,9 @@ export default function CommandeForm({ cart, total }) {
       setCartLength(0); // Réinitialiser le nombre d'articles dans le panier
 
       setTimeout(() => {
-      window.location.reload(); // Recharger la page pour mettre à jour le panier
-      }, 3000); // 3 secondes
+      router.push('/'); // Rediriger vers la page d'accueil
+
+      }, 2000); // Attendre 2 secondes avant la redirection
 
     } catch (error) {
       setMessage(`Erreur : ${error.message}`);

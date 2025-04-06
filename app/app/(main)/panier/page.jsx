@@ -3,16 +3,15 @@ import { useEffect, useState } from "react";
 import styles from "@/app/modules/panier.module.css";
 import Image from "next/image";
 import { CheckCircle, Minus, Plus, ShoppingCart, X } from "lucide-react";
-import CommandeForm from "@/components/CommandeForm.jsx"; // Importer le composant CommandeForm
+import { useRouter } from "next/navigation";
+import { useCart } from "@/app/context/cartContext";
 
 export default function Page() {
   const [produits, setProduits] = useState([]);
   const [cart, setCart] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [showForm, setShowForm] = useState(false); // État pour afficher/masquer le formulaire
-
-
-
+  const router = useRouter();
+  const { setCartLength } = useCart();
 
   // Récupérer les données du panier depuis localStorage
   useEffect(() => {
@@ -96,8 +95,13 @@ export default function Page() {
     );
     setCart(nouveauPanier);
     localStorage.setItem("lux_paradise_cart", JSON.stringify(nouveauPanier));
-    
     setProduits(prevProduits => prevProduits.filter(p => p.id.toString() !== id.toString()));
+    setCartLength(nouveauPanier.length);
+  };
+
+  // Rediriger vers la page du formulaire de commande avec le total en paramètre
+  const allerAuFormulaire = () => {
+    router.push(`/commande?total=${totalPanier}`);
   };
 
   return (
@@ -172,21 +176,12 @@ export default function Page() {
               </span>
             </div>
             <button
-              onClick={() => setShowForm(true)} // Afficher le formulaire au clic
+              onClick={allerAuFormulaire}
               className={styles.checkoutButton}
             >
               Lancer ma Commande
             </button>
           </div>
-
-          {/* Afficher le formulaire si showForm est true */}
-          {showForm && (
-            <CommandeForm
-              cart={cart}
-              total={totalPanier}
-              onClose={() => setShowForm(false)} // Ajouter une prop onClose pour fermer
-            />
-          )}
         </>
       )}
     </div>
