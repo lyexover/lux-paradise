@@ -133,6 +133,54 @@
   color: white;
 }
 
+/* Quantité styles */
+.quantiteContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.quantiteTitle {
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: var(--primary);
+}
+
+.quantiteControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.quantiteBtn {
+  background-color: rgb(238, 238, 253);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quantiteBtn:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.quantiteValue {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 30px;
+  text-align: center;
+}
+
 .commander {
   width: 65%;
   color: var(--primary);
@@ -145,6 +193,7 @@
   font-size: 1.7rem;
   font-weight: 750;
   letter-spacing: 0px;
+  margin-bottom: 5px;
 }
 
 .commander button {
@@ -160,8 +209,16 @@
   border-radius: 1rem;
 }
 
-.commander button:hover {
+.commander button:hover:not(.disabledButton) {
   opacity: 0.8;
+}
+
+.disabledButton {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: none !important;
+  background-color: #e0e0e0;
+  color: #888;
 }
 
 @keyframes pulse {
@@ -245,7 +302,7 @@
 }
 
 .price {
-  margin: 1.5rem 0;
+  margin: 1.5rem 0 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -281,5 +338,189 @@
   .price span {
     font-size: 1.6rem;
     padding: 0.4rem 1.2rem;
+  }
+
+  .quantiteControls {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Navigation options */
+.navigationOptions {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f0f8ff;
+  border-bottom: 2px solid var(--primary);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 0.75rem 0;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.navContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.navMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.navButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.continueLink,
+.cartLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.continueLink {
+  color: var(--primary);
+  background-color: transparent;
+  border: 1px solid var(--primary);
+}
+
+.continueLink:hover {
+  background-color: rgba(0, 70, 173, 0.1);
+}
+
+.cartLink {
+  color: white;
+  background-color: var(--primary);
+}
+
+.cartLink:hover {
+  background-color: #003c93;
+}
+
+/* Réarrangement des contrôles de commande */
+.commanderActions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.quantiteContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.quantiteTitle {
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: var(--primary);
+}
+
+.quantiteControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantiteBtn {
+  background-color: rgb(238, 238, 253);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quantiteBtn:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.quantiteValue {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 30px;
+  text-align: center;
+}
+
+.addToCartBtn {
+  display: flex;
+  align-items: center;
+  border: none;
+  gap: 0.2rem;
+  background-color: white;
+  color: var(--primary);
+  padding: 0.5rem 0.8rem;
+  width: fit-content;
+  cursor: pointer;
+  animation: pulse 1.5s infinite;
+  border-radius: 1rem;
+  justify-content: center;
+}
+
+.addToCartBtn:hover {
+  opacity: 0.8;
+}
+
+/* Media queries pour la responsivité */
+@media (max-width: 768px) {
+  .navContent {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .commanderActions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .navigationOptions {
+    padding: 1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .navButtons {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .continueLink,
+  .cartLink {
+    justify-content: center;
+    width: 100%;
   }
 }

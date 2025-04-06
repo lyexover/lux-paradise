@@ -1,19 +1,13 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "@/app/modules/commandeForm.module.css";
+import { useCart } from "@/app/context/cartContext";
+import { useRouter } from "next/navigation";
 
 export default function CommandeForm({ cart, total }) {
-  const [formattedCart, setFormattedCart] = useState([]);
-
-  useEffect(() => {
-    const transformedCart = cart.map((element) => ({
-      id: element,
-      quantite: 1,
-    }));
-    setFormattedCart(transformedCart);
-  }, [cart]);
-
-  console.log(formattedCart); // Cela affichera bien la version mise à jour
+ 
+  const {setCartLength} = useCart()
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     nom: '',
@@ -48,7 +42,7 @@ export default function CommandeForm({ cart, total }) {
         },
         body: JSON.stringify({
           data: formData,
-          produits: formattedCart,
+          produits: cart,
         }),
       });
 
@@ -57,8 +51,10 @@ export default function CommandeForm({ cart, total }) {
       if (!response.ok) {
         throw new Error(result.error || 'Erreur lors de l’envoi');
       }
-
+      
       setMessage('Commande envoyée avec succès !');
+      
+
       setFormData({
         nom: '',
         prenom: '',
@@ -70,6 +66,11 @@ export default function CommandeForm({ cart, total }) {
       });
 
       localStorage.removeItem('lux_paradise_cart');
+      setCartLength(0); // Réinitialiser le nombre d'articles dans le panier
+
+      setTimeout(() => {
+      window.location.reload(); // Recharger la page pour mettre à jour le panier
+      }, 3000); // 3 secondes
 
     } catch (error) {
       setMessage(`Erreur : ${error.message}`);

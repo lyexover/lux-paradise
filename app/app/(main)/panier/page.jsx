@@ -59,22 +59,22 @@ export default function Page() {
   // Trouver la quantité d'un produit
   function findQuantite(id) {
     const cartItem = cart.find((item) =>
-      typeof item === 'object' ? item.id === id.toString() : item === id.toString()
+      item.id === id.toString() 
     );
-    return cartItem && typeof cartItem === 'object' ? cartItem.quantite : 1;
+    return cartItem.quantite ;
   }
 
   // Gérer l'incrémentation/décrémentation de la quantité
   function handleQuantityChange(id, change) {
     const updatedCart = cart.map((item) => {
-      const currentItem = typeof item === 'object' ? item : { id: item, quantite: 1 };
-      if (currentItem.id === id.toString()) {
+      
+      if (item.id === id.toString()) {
         return {
-          ...currentItem,
-          quantite: Math.max(1, currentItem.quantite + change),
+          ...item,
+          quantite: Math.max(1, item.quantite + change),
         };
       }
-      return currentItem;
+      return item;
     });
 
     setCart(updatedCart);
@@ -92,7 +92,7 @@ export default function Page() {
   // Retirer un produit du panier
   const retirerDuPanier = (id) => {
     const nouveauPanier = cart.filter((item) =>
-      typeof item === 'object' ? item.id !== id.toString() : item !== id.toString()
+      item.id !== id.toString() 
     );
     setCart(nouveauPanier);
     localStorage.setItem("lux_paradise_cart", JSON.stringify(nouveauPanier));
