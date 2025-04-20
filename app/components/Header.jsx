@@ -18,6 +18,7 @@ export default  function Header() {
     
   const handleSearch = ()=> {
     setQuery('')
+    setShowSearch(false)
       router.push(`/boutique?query=${query}`)
       
   }

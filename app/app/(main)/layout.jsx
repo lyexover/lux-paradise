@@ -10,7 +10,7 @@ export default function mainLayout({ children }) {
     <>
     <CartProvider>
         <Header />
-        <BreadCrumbs/>
+         {/* <BreadCrumbs /> */}  
         <div className="main-content" >
         {children}
         </div>
