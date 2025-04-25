@@ -10,14 +10,14 @@ const PreferenceModal = () => {
   
 
 
-  useEffect(() => {
-    const stored = localStorage.getItem('isModalOpen');
-    if (stored) {
-      setAlreadyOpened(true);
-    } else {
-      localStorage.setItem('isModalOpen', 'true');
-    }
-  }, []);
+  // useEffect(() => {
+  //   const stored = localStorage.getItem('isModalOpen');
+  //   if (stored) {
+  //     setAlreadyOpened(true);
+  //   } else {
+  //     localStorage.setItem('isModalOpen', 'true');
+  //   }
+  // }, []);
 
   
 
@@ -126,22 +126,7 @@ const PreferenceModal = () => {
               </select>
             </div>
             
-            <div className={styles.formGroup}>
-              <label htmlFor="notes">Notes olfactives préférées</label>
-              <select 
-                id="notes" 
-                name="notes" 
-                value={formData.notes} 
-                onChange={handleChange}
-              >
-                <option value="">Sélectionnez</option>
-                <option value="florales">Florales</option>
-                <option value="fruitées">Fruitées</option>
-                <option value="boisées">Boisées</option>
-                <option value="orientales">Orientales</option>
-                <option value="fraîches">Fraîches</option>
-              </select>
-            </div>
+            
             
             <div className={styles.formGroup}>
               <label htmlFor="occasion">Occasion d'utilisation</label>

@@ -7,6 +7,15 @@ export default function ProductForm({ categories, produit, onSuccess }) {
   const [status, setStatus] = useState({ success: null, error: null, pending: false });
   const isEditing = !!produit; // Vérifie si on est en mode édition
   const router = useRouter();
+  
+  // État pour la catégorie sélectionnée
+  const [selectedCategory, setSelectedCategory] = useState(produit?.categorie_id || "");
+  
+  // Vérifier si la catégorie sélectionnée est "Parfums"
+  const isParfumCategory = () => {
+    const parfumCategory = categories.find(cat => cat.nom.toLowerCase() === "parfums");
+    return parfumCategory && parseInt(selectedCategory) === parfumCategory.id;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +40,7 @@ export default function ProductForm({ categories, produit, onSuccess }) {
         if (onSuccess) onSuccess(result); // Callback pour notifier le parent
         if (!isEditing) e.target.reset(); // Réinitialiser le formulaire uniquement en mode ajout
 
-        router.push("/dashboard/produits") // Rafraîchir la page pour afficher les changements
+        router.push("/dashboard/produits"); // Rafraîchir la page pour afficher les changements
       } else {
         setStatus({ success: null, error: result.error || "Erreur lors de l'opération", pending: false });
       }
@@ -39,6 +48,13 @@ export default function ProductForm({ categories, produit, onSuccess }) {
       setStatus({ success: null, error: error.message, pending: false });
     }
   };
+
+  // Mettre à jour la catégorie sélectionnée quand on change de produit ou sélectionne une catégorie
+  useEffect(() => {
+    if (produit) {
+      setSelectedCategory(produit.categorie_id || "");
+    }
+  }, [produit]);
 
   return (
     <div className={styles.productForm}>
@@ -67,7 +83,7 @@ export default function ProductForm({ categories, produit, onSuccess }) {
           type="text"
           name="infos"
           placeholder="Longue Description"
-          defaultValue={produit?.description || ""}
+          defaultValue={produit?.infos || ""}
           required
         />
 
@@ -78,9 +94,11 @@ export default function ProductForm({ categories, produit, onSuccess }) {
           defaultValue={produit?.prix || ""}
           required 
         />
+        
         <select 
           name="category" 
-          defaultValue={produit?.categorie_id || ""}
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
           required
         >
           <option value="">Choisir une catégorie</option>
@@ -91,16 +109,67 @@ export default function ProductForm({ categories, produit, onSuccess }) {
           ))}
         </select>
         
+        {/* Champs conditionnels pour les parfums */}
+        {isParfumCategory() && (
+          
+            <>
+            <select 
+              name="sexe" 
+              defaultValue={produit?.sexe || ""}
+              required={isParfumCategory()}
+            >
+              <option value="">Sexe</option>
+              <option value="homme">Homme</option>
+              <option value="femme">Femme</option>
+              <option value="unisexe">Unisexe</option>
+            </select>
+            
+            <select 
+              name="saison" 
+              defaultValue={produit?.saison || ""}
+              required={isParfumCategory()}
+            >
+              <option value="">Saison</option>
+              <option value="printemps">Printemps</option>
+              <option value="ete">Été</option>
+              <option value="automne">Automne</option>
+              <option value="hiver">Hiver</option>
+            </select>
+            
+            <select 
+              name="intensite" 
+              defaultValue={produit?.intensite || ""}
+              required={isParfumCategory()}
+            >
+              <option value="">Intensitè</option>
+              <option value="legere">Légère</option>
+              <option value="moderee">Modérée</option>
+              <option value="intense">Intense</option>
+            </select>
+            
+            <select 
+              name="occasion" 
+              defaultValue={produit?.occasion || ""}
+              required={isParfumCategory()}
+            >
+              <option value="">Occasion</option>
+              <option value="quotidien">Quotidien</option>
+              <option value="travail">Travail</option>
+              <option value="soiree">Soirée</option>
+              <option value="evenement special">Événement spécial</option>
+            </select>
+          </>
+        )}
       
-      {
-         !isEditing &&   // Afficher le champ de fichier uniquement pour un nouvel ajout
-         <input 
-          type="file" 
-          name="image" 
-          required={!isEditing} // Obligatoire seulement pour un nouvel ajout
-        />
-
-      }  
+        {
+          !isEditing && (  // Afficher le champ de fichier uniquement pour un nouvel ajout
+            <input 
+              type="file" 
+              name="image" 
+              required={!isEditing} // Obligatoire seulement pour un nouvel ajout
+            />
+          )
+        }  
         
         <button type="submit" disabled={status.pending}>
           {status.pending 

@@ -1,11 +1,10 @@
 'use client'
 
-import { useState, useEffect, useMemo, use } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import ProductForm from "@/components/ProductForm";
 import styles from "@/app/modules/dashboard.module.css";
 import { Pencil } from "lucide-react";
-
 
 export default function Page() {
     const [showForm, setShowForm] = useState(false);
@@ -16,13 +15,11 @@ export default function Page() {
     const [amodifier, setAmodifier] = useState(null);
     const [loading, setLoading] = useState(true);
 
-
     //fonction pour vider le formulaire si on a cliqué sur le bouton modifier un produit avant ajouter 
     function handleAddButton(){
         setAmodifier(null);
         setShowForm(true);
     }
-
 
     // Récupérer les catégories et produits
     useEffect(() => {
@@ -41,7 +38,6 @@ export default function Page() {
                     produitsResponse.json()
                 ]);
                
-
                 setCategories(categories);
                 setProduits(produits.reverse());
                 setLoading(false);
@@ -51,10 +47,9 @@ export default function Page() {
         };
 
         fetchData();
-        
     }, []);
 
-    // Filtrage des produits
+    // Filtrage des produits (sans filtres supplémentaires pour parfums)
     const filteredProducts = useMemo(() => {
         return produits.filter((product) => {
             if (!search && !category) return true;
@@ -70,7 +65,10 @@ export default function Page() {
     const indiceFin = currentPage * 16;
     const indiceDebut = indiceFin - 16;
 
-
+    // Réinitialiser la page courante quand les filtres changent
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [search, category]);
    
     // Fonction pour supprimer un produit
     const handleDelete = async (id) => {
@@ -106,11 +104,18 @@ export default function Page() {
         }
     }
 
-
-
-
-
-    
+    // Fonction pour rafraîchir la liste des produits après ajout/modification
+    const handleFormSuccess = () => {
+        setShowForm(false);
+        
+        // Rafraîchir la liste des produits
+        fetch("/api/produits")
+            .then(res => res.json())
+            .then(data => {
+                setProduits(data.reverse());
+            })
+            .catch(err => console.error("Erreur lors du rafraîchissement des produits:", err));
+    };
 
     return (
         <div className={styles.gestionProduits}>
@@ -126,7 +131,8 @@ export default function Page() {
                         </button>
                         <ProductForm 
                             categories={categories}  
-                            produit={amodifier}                      
+                            produit={amodifier}
+                            onSuccess={handleFormSuccess}
                         />
                     </div>
                 </div>
@@ -186,7 +192,6 @@ export default function Page() {
                                         width={300}
                                         height={300}
                                         className={styles.productImg}
-                                        
                                     />
                                 ) : (
                                     <div className={styles.noImage}>Image non disponible</div>
@@ -198,23 +203,22 @@ export default function Page() {
                                 <p className={styles.productCategory}>
                                     {categories.find(c => c.id === produit.categorie_id)?.nom || "Catégorie inconnue"}
                                 </p>
-                        
+                                
+                                
                             </div>
                             <div className={styles.productActions}>
-
                                 <button className={styles.dispoBtn}
-                                   onClick={() => handleDisponibilite(produit.id ,produit.disponibilite === 1 ? 0 : 1)}
+                                   onClick={() => handleDisponibilite(produit.id, produit.disponibilite === 1 ? 0 : 1)}
                                 >
                                     {produit.disponibilite == 1 ? 'Marquer Indisponible' : 'Marquer Disponible'}
                                 </button>
 
-                                <button className={styles.deleteBtn} onClick={()=> handleDelete(produit.id)} >Supprimer</button>
+                                <button className={styles.deleteBtn} onClick={()=> handleDelete(produit.id)}>Supprimer</button>
                             </div>
                         </div>
                     ))
                 )}
             </div>
-
 
             <div className={styles.paginationContainer}>
                {

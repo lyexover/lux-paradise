@@ -19,6 +19,7 @@ async function fetchCategories(){
 
 export default async function BoutiquePage(props) {
     const categories = await fetchCategories()
+   
 
     const productsPerPage = 16
 
@@ -72,7 +73,9 @@ export default async function BoutiquePage(props) {
                             </div>
                             <div className={styles.productInfo}>
                                 <p className={styles.productCategory}>
-                                    {produit.categorie_id === 3 ? 'Soins du corps' : 'Soins du visage'}
+                                    {
+                                        categories.find(category => category.id === produit.categorie_id)?.nom || "Autre"
+                                    }
                                 </p>
                                 <p className={styles.productName}>{produit.nom}</p>
                                 <div className={styles.productPriceContainer}>

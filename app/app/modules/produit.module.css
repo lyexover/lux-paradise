@@ -37,6 +37,8 @@
 .imageContainer {
   width: 85%;
   display: flex;
+  height: fit-content;
+  padding: 2rem 0;
   align-items: center;
   justify-content: center;
   background-color: rgb(238, 238, 253);
