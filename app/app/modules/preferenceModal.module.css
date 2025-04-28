@@ -130,3 +130,164 @@
     max-width: 90%;
   }
 }
+
+/* products */
+
+/* Add these styles to your existing preferenceModal.module.css file */
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.productCard {
+  background-color: rgb(248, 248, 255);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(5, 5, 255, 0.1);
+  text-decoration: none;
+}
+
+.productCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(5, 5, 255, 0.1);
+}
+
+.productImageContainer {
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  position: relative;
+  background-color: rgb(240, 240, 251);
+}
+
+.productImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(5, 5, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productInfo {
+  padding: 1rem;
+}
+
+.productInfo h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.productBrand {
+  color: var(--primary);
+  opacity: 0.7;
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.productDetails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.productTag {
+  background-color: rgba(5, 5, 255, 0.1);
+  color: var(--primary);
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.productPrice {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(5, 5, 255, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.noResults {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--primary);
+}
+
+.resultsActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.backButton {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: rgb(238, 238, 253);
+  transform: scale(1.1);
+}
+
+/* Adjust the modal container for results view */
+.modalContainer {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 600px) {
+  .productsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .resultsActions {
+    flex-direction: column;
+  }
+}
