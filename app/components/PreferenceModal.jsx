@@ -135,7 +135,7 @@ const PreferenceModal = () => {
           {!showResults ? (
             <>
               <h2>Découvrez des parfums adaptés à vos préférences</h2>
-              <p>Remplissez ce formulaire pour nous aider à mieux comprendre vos préférences.</p>
+              <p>Remplissez ce formulaire pour decouvrir des Parfums selon vos preferences.</p>
               
               <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
