@@ -474,12 +474,17 @@
 }
 
 /* Styles pour le formulaire de produit */
-.productForm form {
+.productForm form .formContent {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
   gap: 1.2rem;
   margin-top: 1rem;
+}
+
+.productForm h2 {
+  text-align: center;
+  padding-bottom: 0.5rem;
 }
 
 .productForm form input,
@@ -490,6 +495,7 @@
   font-size: 0.95rem;
   transition: all 0.3s ease;
   width: 90%;
+  height: fit-content;
 }
 
 .productForm form input:focus,
@@ -513,7 +519,8 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 0.5rem;
+  margin-top: 1.5rem;
+  width: 100%;
 }
 
 .productForm form button:hover:not(:disabled) {

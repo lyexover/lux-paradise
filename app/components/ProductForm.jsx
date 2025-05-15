@@ -11,6 +11,9 @@ export default function ProductForm({ categories, produit, onSuccess }) {
   // État pour la catégorie sélectionnée
   const [selectedCategory, setSelectedCategory] = useState(produit?.categorie_id || "");
   
+  // État pour suivre si une nouvelle image a été sélectionnée
+  const [newImageSelected, setNewImageSelected] = useState(false);
+  
   // Vérifier si la catégorie sélectionnée est "Parfums"
   const isParfumCategory = () => {
     const parfumCategory = categories.find(cat => cat.nom.toLowerCase() === "parfums");
@@ -37,6 +40,7 @@ export default function ProductForm({ categories, produit, onSuccess }) {
 
       if (response.ok && result.success) {
         setStatus({ success: true, error: null, pending: false });
+        setNewImageSelected(false); // Réinitialiser l'état de sélection d'image
         if (onSuccess) onSuccess(result); // Callback pour notifier le parent
         if (!isEditing) e.target.reset(); // Réinitialiser le formulaire uniquement en mode ajout
 
@@ -56,6 +60,15 @@ export default function ProductForm({ categories, produit, onSuccess }) {
     }
   }, [produit]);
 
+  // Gérer le changement d'image
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setNewImageSelected(true);
+    } else {
+      setNewImageSelected(false);
+    }
+  };
+
   return (
     <div className={styles.productForm}>
       {status.error && <p className={styles.error}>{status.error}</p>}
@@ -63,7 +76,11 @@ export default function ProductForm({ categories, produit, onSuccess }) {
         {isEditing ? "Produit modifié !" : "Produit ajouté !"}
       </p>}
 
+      <h2>{isEditing ? 'Modifier le produit' : 'Ajouter un Produit'}</h2>
+
       <form onSubmit={handleSubmit}>
+
+        <div className={styles.formContent}>
         <input 
           type="text" 
           name="nom" 
@@ -111,8 +128,7 @@ export default function ProductForm({ categories, produit, onSuccess }) {
         
         {/* Champs conditionnels pour les parfums */}
         {isParfumCategory() && (
-          
-            <>
+          <>
             <select 
               name="sexe" 
               defaultValue={produit?.sexe || ""}
@@ -161,15 +177,36 @@ export default function ProductForm({ categories, produit, onSuccess }) {
           </>
         )}
       
-        {
-          !isEditing && (  // Afficher le champ de fichier uniquement pour un nouvel ajout
+        {/* Champ d'image modifié pour supporter la mise à jour */}
+        <div>
+          {isEditing && produit.photo && !newImageSelected && (
+            <div className={styles.currentImage}>
+              <p>Image actuelle: </p>
+              <img 
+                src={produit.photo} 
+                alt={produit.nom}
+                style={{ maxWidth: "100px", maxHeight: "100px" }}
+              />
+            </div>
+          )}
+          
+          <input 
+            type="file" 
+            name="image" 
+            onChange={handleImageChange}
+            required={!isEditing} // Obligatoire seulement pour un nouvel ajout
+          />
+          
+          {isEditing && (
             <input 
-              type="file" 
-              name="image" 
-              required={!isEditing} // Obligatoire seulement pour un nouvel ajout
+              type="hidden" 
+              name="currentPhoto" 
+              value={produit?.photo || ""} 
             />
-          )
-        }  
+          )}
+        </div>
+
+        </div>
         
         <button type="submit" disabled={status.pending}>
           {status.pending 
